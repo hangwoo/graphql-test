@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5", // compile target es version 사실 웹팩타서 무의미
+    "esModuleInterop": true, // import * , import Default helpers
+    "strict": true, // strict type checking
+    "forceConsistentCasingInFileNames": true, // file name casing 강제
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true, // json 을 module 로.
+    "isolatedModules": true, // Disallow features that require cross-file information for emit (babel 7 과 함께 사용하기 위해선 꼭 필요한 옵션)
+    "noImplicitAny": true, // 표션식이나 정의가 any 로 추론되면 에러. (명시적 선언은 가능)
+    "noImplicitThis": true, // this 표현식이 any 로 추론되면 에러. (마찬가지로 명시적 선언은 가능)
+    "noEmit": true, //
+    "experimentalDecorators": true, // decorator
+    "baseUrl": ".",
+  },
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.d.ts"]
+}
