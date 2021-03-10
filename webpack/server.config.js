@@ -1,7 +1,9 @@
-const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+import path from 'path';
+import nodeExternals from 'webpack-node-externals';
 
-module.exports = {
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+export default {
   entry: path.resolve(__dirname, "../src/server.ts"),
   mode: "development",
   target: "node",
@@ -22,11 +24,20 @@ module.exports = {
             jsc: {
               parser: {
                 syntax: "typescript"
-              }
+              },
+              target: "node",
+              loose: true,
+              externalHelpers: true,
+              module: {
+                type: "commonjs",
+              },
             }
           }
         }
       }
     ],
   },
+  resolve: {
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+  }
 }

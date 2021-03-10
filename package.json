@@ -6,6 +6,7 @@
   "repository": "git@github.com:hangwoo/graphql-test.git",
   "author": "hangwoo <marong61@gmail.com>",
   "private": true,
+  "type": "module",
   "scripts": {
     "watch": "webpack --progress --watch --config webpack/server.config.js",
     "build": "webpack --progress --config webpack/server.config.js",
@@ -19,6 +20,8 @@
     "graphql-relay": "^0.6.0"
   },
   "devDependencies": {
+    "@swc/core": "^1.2.50",
+    "@swc/helpers": "^0.2.4",
     "@types/express": "^4.17.11",
     "@types/express-graphql": "^0.9.0",
     "@types/graphql": "^14.5.0",
@@ -28,7 +31,6 @@
     "webpack": "5.24.4",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
-    "@swc/core": "^1.2.50",
     "swc-loader": "^0.1.12"
   }
 }
