@@ -6,7 +6,6 @@
   "repository": "git@github.com:hangwoo/graphql-test.git",
   "author": "hangwoo <marong61@gmail.com>",
   "private": true,
-  "type": "module",
   "scripts": {
     "watch": "webpack --progress --watch --config webpack/server.config.js",
     "build": "webpack --progress --config webpack/server.config.js",

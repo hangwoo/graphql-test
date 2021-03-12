@@ -12,6 +12,7 @@
     "noImplicitThis": true, // this 표현식이 any 로 추론되면 에러. (마찬가지로 명시적 선언은 가능)
     "noEmit": true, //
     "experimentalDecorators": true, // decorator
+    "allowJs": true,
     "baseUrl": ".",
   },
   "exclude": ["node_modules"],

@@ -1,9 +1,7 @@
-import path from 'path';
-import nodeExternals from 'webpack-node-externals';
+const path = require("path");
+const nodeExternals = require('webpack-node-externals');
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
-export default {
+module.exports = {
   entry: path.resolve(__dirname, "../src/server.ts"),
   mode: "development",
   target: "node",
