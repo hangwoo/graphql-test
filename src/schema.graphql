@@ -1,0 +1,34 @@
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  reviews(after: String, first: Int, before: String, last: Int): ReviewConnection
+}
+
+type Review implements Node {
+  id: ID!
+  description: String!
+  author: User!
+}
+
+type ReviewEdge {
+  cursor: String!
+  node: Review
+}
+
+type ReviewConnection {
+  edges: [ReviewEdge]
+  pageInfo: PageInfo!
+}

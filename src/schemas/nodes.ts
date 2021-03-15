@@ -1,4 +1,4 @@
-import { nodeDefinitions, fromGlobalId, globalIdField } from 'graphql-relay';
+import { connectionArgs, connectionDefinitions, nodeDefinitions, fromGlobalId, globalIdField } from 'graphql-relay';
 import {
   GraphQLNonNull,
   GraphQLObjectType,
@@ -6,6 +6,7 @@ import {
 } from 'graphql';
 import database, { Review, User } from 'db';
 
+// @ts-expect-error
 const { nodeInterface, nodeField } = nodeDefinitions(
   globalId => {
     const { type, id } = fromGlobalId(globalId);
@@ -30,21 +31,37 @@ const { nodeInterface, nodeField } = nodeDefinitions(
   },
 );
 
-// @ts-ignore
-const GraphQLUserType = new GraphQLObjectType({
-  name: 'User',
+// @ts-expect-error
+const GraphQLReviewType = new GraphQLObjectType({
+  name: 'Review',
   fields: {
-    // @ts-ignore
-    id: globalIdField("User"),
-    name: {
+    id: globalIdField("Review"),
+    description: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: (user: User) => user.name,
+      resolve: (review: Review) => review.description,
     },
   },
   interfaces: [nodeInterface],
 });
 
-const GraphQLReviewType = new GraphQLObjectType({
-  name: 'Review',
-  fields: {},
+const { connectionType: ReviewConnectionType, edgeType } = connectionDefinitions({
+  name: "Review",
+  nodeType: GraphQLReviewType,
+});
+
+// @ts-expect-error
+const GraphQLUserType = new GraphQLObjectType({
+  name: 'User',
+  fields: {
+    id: globalIdField("User"),
+    name: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: (user: User) => user.name,
+    },
+    reviews: {
+      type: ReviewConnectionType,
+      args: connectionArgs,
+    }
+  },
+  interfaces: [nodeInterface],
 });
