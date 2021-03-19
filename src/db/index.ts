@@ -29,7 +29,6 @@ export class Review {
 
 class DB {
   users: { [key: string]: User };
-  // @ts-ignore
   reviews: { [key: string]: Review };
 
   constructor() {
@@ -37,6 +36,7 @@ class DB {
     this.users = {
       [userId]: new User({ name: "Bob", id: userId }),
     };
+    this.reviews = {};
     this.addReview({
       description: "첫번째 리뷰",
       userId,

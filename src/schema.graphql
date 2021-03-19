@@ -32,3 +32,8 @@ type ReviewConnection {
   edges: [ReviewEdge]
   pageInfo: PageInfo!
 }
+
+type Query {
+  user(id: String!): User
+  node(id: ID!): Node
+}
