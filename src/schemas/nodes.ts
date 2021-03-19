@@ -1,4 +1,10 @@
-import { connectionArgs, connectionDefinitions, nodeDefinitions, fromGlobalId, globalIdField } from 'graphql-relay';
+import {
+  connectionArgs,
+  connectionDefinitions,
+  nodeDefinitions,
+  fromGlobalId,
+  globalIdField, connectionFromArray,
+} from 'graphql-relay';
 import {
   GraphQLNonNull,
   GraphQLObjectType,
@@ -40,11 +46,18 @@ const GraphQLReviewType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       resolve: (review: Review) => review.description,
     },
+    userId: {
+      type: GraphQLString,
+      resolve: (review: Review) => review.author.id,
+    }
   },
   interfaces: [nodeInterface],
 });
 
-const { connectionType: ReviewConnectionType, edgeType } = connectionDefinitions({
+const {
+  connectionType: GraphQLReviewConnectionType,
+  edgeType: GraphQLReviewEdgeType,
+} = connectionDefinitions({
   name: "Review",
   nodeType: GraphQLReviewType,
 });
@@ -59,9 +72,21 @@ const GraphQLUserType = new GraphQLObjectType({
       resolve: (user: User) => user.name,
     },
     reviews: {
-      type: ReviewConnectionType,
+      type: GraphQLReviewConnectionType,
       args: connectionArgs,
+      resolve: (user: User, { after, before, first, last }) => {
+        return connectionFromArray([
+          ...database.getReviews(user.id),
+        ], {
+          after,
+          before,
+          first,
+          last,
+        });
+      },
     }
   },
   interfaces: [nodeInterface],
 });
+
+export { nodeField, GraphQLReviewType, GraphQLUserType, GraphQLReviewConnectionType, GraphQLReviewEdgeType };

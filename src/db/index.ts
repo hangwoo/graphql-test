@@ -58,6 +58,10 @@ class DB {
   getReview(id: string): Review {
     return this.reviews[id];
   }
+
+  getReviews(userId: string) {
+    return this.users[userId].reviews;
+  }
 }
 
 const db = new DB();
