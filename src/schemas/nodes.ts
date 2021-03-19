@@ -3,7 +3,7 @@ import {
   connectionDefinitions,
   nodeDefinitions,
   fromGlobalId,
-  globalIdField, connectionFromArray,
+  globalIdField, connectionFromArray, Connection,
 } from 'graphql-relay';
 import {
   GraphQLNonNull,
@@ -74,7 +74,10 @@ const GraphQLUserType = new GraphQLObjectType({
     reviews: {
       type: GraphQLReviewConnectionType,
       args: connectionArgs,
-      resolve: (user: User, { after, before, first, last }) => {
+      resolve: (user: User, { after, before, first, last }): Connection<Review> => {
+        // 실제 디비에선 after, before, first, last 이용해 db 쿼리를 날려야 할듯.
+        // Connection 폼만 맞춰도 될듯.
+        // graphql-relay-js 를 꼭 사용할 필요가 없어보이네.
         return connectionFromArray([
           ...database.getReviews(user.id),
         ], {
